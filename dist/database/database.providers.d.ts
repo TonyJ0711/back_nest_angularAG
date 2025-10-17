@@ -1,5 +1,7 @@
+import { ConfigService } from "src/config/config.service";
 import { DataSource } from "typeorm";
 export declare const databaseProviders: {
     provide: string;
-    useFactory: () => Promise<DataSource>;
+    inject: (typeof ConfigService)[];
+    useFactory: (config: ConfigService) => Promise<DataSource>;
 }[];

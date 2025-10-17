@@ -14,7 +14,8 @@ let ConfigModule = class ConfigModule {
 exports.ConfigModule = ConfigModule;
 exports.ConfigModule = ConfigModule = __decorate([
     (0, common_1.Module)({
-        providers: [config_service_1.ConfigService]
+        providers: [config_service_1.ConfigService],
+        exports: [config_service_1.ConfigService]
     })
 ], ConfigModule);
 //# sourceMappingURL=config.module.js.map
