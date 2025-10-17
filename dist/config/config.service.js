@@ -49,25 +49,14 @@ const dotenv_1 = require("dotenv");
 let ConfigService = class ConfigService {
     envConfig;
     constructor() {
-        const isDevelopmentEnv = process.env.NODE_ENV !== 'production';
-        if (isDevelopmentEnv) {
-            const envFilePath = __dirname + '/../../.env.development';
-            const existsPath = fs.existsSync(envFilePath);
-            if (existsPath) {
-                console.log('.env.development no existe');
-                process.exit(0);
-            }
-            this.envConfig = (0, dotenv_1.parse)(fs.readFileSync(envFilePath));
+        const env = process.env.NODE_ENV || 'development';
+        const envFilePath = `${__dirname}/../../.env.${env}`;
+        const existsPath = fs.existsSync(envFilePath);
+        if (!existsPath) {
+            console.log(`.env.${process.env.NODE_ENV} no existe`);
+            process.exit(0);
         }
-        else {
-            const envFilePath = __dirname + '/../../.env.production';
-            const existsPath = fs.existsSync(envFilePath);
-            if (!existsPath) {
-                console.log('.env.production no existe PRODUCTION');
-                process.exit(0);
-            }
-            this.envConfig = (0, dotenv_1.parse)(fs.readFileSync(envFilePath));
-        }
+        this.envConfig = (0, dotenv_1.parse)(fs.readFileSync(envFilePath));
     }
     get(key) {
         return this.envConfig[key];
